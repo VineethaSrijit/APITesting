@@ -1,0 +1,1 @@
+newman run APITesting.postman_collection.json -e "API Testing.postman_environment.json"

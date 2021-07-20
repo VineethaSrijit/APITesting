@@ -1,0 +1,99 @@
+newman
+
+APITesting
+
+□ Create Order Test Case
+└ Create Billing Order
+  POST http://api.qaauto.co.nz/api/v1/billingOrders [200 OK, 581B, 438ms]
+  √  Status code is 200
+  ┌
+  │ 720
+  └
+
+└ Read specific Billing Order with Id
+  GET http://api.qaauto.co.nz/api/v1/billingOrders/720 [200 OK, 636B, 252ms]
+  √  Status code is 200
+  ┌
+  │ 720
+  └
+  √  Validate Post Billing Order
+
+└ Delete
+  DELETE http://api.qaauto.co.nz/api/v1/billingOrders/720 [200 OK, 395B, 250ms]
+  √  Status code is 200
+  ┌
+  │ 'Billing Order deleted successfully'
+  └
+  √  Validating if order is deleted
+
+□ Read Order Test Case
+└ Read all Billing Orders
+  GET http://api.qaauto.co.nz/api/v1/billingOrders [200 OK, 96.49KB, 281ms]
+  √  Status code is 200
+
+□ Update Order Test Case
+└ Create Billing Order
+  POST http://api.qaauto.co.nz/api/v1/billingOrders [200 OK, 581B, 250ms]
+  √  Status code is 200
+  ┌
+  │ 721
+  └
+
+└ Update Specified Billing Order
+  PUT http://api.qaauto.co.nz/api/v1/billingOrders/721 [200 OK, 582B, 251ms]
+  √  Status code is 200
+  ┌
+  │ 721
+  └
+
+└ Read specific Billing Order with Id
+  GET http://api.qaauto.co.nz/api/v1/billingOrders/721 [200 OK, 636B, 247ms]
+  √  Status code is 200
+  ┌
+  │ 721
+  └
+  √  Validate Post Billing Order
+
+└ Delete
+  DELETE http://api.qaauto.co.nz/api/v1/billingOrders/721 [200 OK, 395B, 279ms]
+  √  Status code is 200
+  ┌
+  │ 'Billing Order deleted successfully'
+  └
+  √  Validating if order is deleted
+
+□ Delete Order Test Case
+└ Create Billing Order
+  POST http://api.qaauto.co.nz/api/v1/billingOrders [200 OK, 581B, 251ms]
+  √  Status code is 200
+  ┌
+  │ 722
+  └
+
+└ Delete
+  DELETE http://api.qaauto.co.nz/api/v1/billingOrders/722 [200 OK, 395B, 241ms]
+  √  Status code is 200
+  ┌
+  │ 'Billing Order deleted successfully'
+  └
+  √  Validating if order is deleted
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                 10 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                 10 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  3 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 15 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 4s                                            │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 97.8KB (approx)                              │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 274ms [min: 241ms, max: 438ms, s.d.: 56ms] │
+└───────────────────────────────────────────────────────────────────┘

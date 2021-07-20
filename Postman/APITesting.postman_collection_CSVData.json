@@ -1,0 +1,983 @@
+{
+	"info": {
+		"_postman_id": "b76d53f9-90a5-4937-8b10-9852114ce4bc",
+		"name": "APITesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Order Test Case",
+			"item": [
+				{
+					"name": "Create Billing Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"//setting environment variables\r",
+									"pm.environment.set(\"id\",jsonData.data.id);\r",
+									"pm.environment.set(\"fName\",jsonData.data.FirstName);\r",
+									"pm.environment.set(\"lName\",jsonData.data.LastName);\r",
+									"pm.environment.set(\"email\",jsonData.data.Email);\r",
+									"pm.environment.set(\"addLine1\",jsonData.data.AddressLine1);\r",
+									"pm.environment.set(\"addLine2\", jsonData.data.AddressLine2);\r",
+									"pm.environment.set(\"phNumber\",jsonData.data.PhoneNumber);\r",
+									"pm.environment.set(\"comment\",jsonData.data.Comment);\r",
+									"pm.environment.set(\"zipCode\",jsonData.data.ZipCode);\r",
+									"console.log(jsonData.data.id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"FirstName\": \"Arya\",\r\n  \"LastName\": \"Stark\",\r\n  \"Email\": \"as@gmail.com\",\r\n  \"AddressLine1\": \"North\",\r\n  \"AddressLine2\": \"Europe\",\r\n  \"PhoneNumber\": \"99559955\",\r\n  \"Comment\": \"testing\",\r\n  \"ZipCode\": \"5400\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Billing Order by Id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//setting local variables\r",
+									"var jsonData = pm.response.json();\r",
+									"var responseId = jsonData.data.id;\r",
+									"var responseFName = jsonData.data.FirstName;\r",
+									"var responseLName = jsonData.data.LastName;\r",
+									"var responseEmail = jsonData.data.Email;\r",
+									"var responseAddLine1 = jsonData.data.AddressLine1;\r",
+									"var responseAddLine2 = jsonData.data.AddressLine2;\r",
+									"var responsephNumber = jsonData.data.PhoneNumber;\r",
+									"var responsecomment = jsonData.data.Comment;\r",
+									"var responsezipCode = jsonData.data.ZipCode; \r",
+									"console.log(responseId);\r",
+									"//Function to validate the billing order added         \r",
+									"pm.test(\"Validate Post Billing Order\", function () {\r",
+									"   pm.expect(pm.environment.get(\"id\")).to.eql(responseId);\r",
+									"   pm.expect(pm.environment.get(\"fName\")).to.eql(responseFName);\r",
+									"   pm.expect(pm.environment.get(\"lName\")).to.eql(responseLName);\r",
+									"   pm.expect(pm.environment.get(\"email\")).to.eql(responseEmail);\r",
+									"   pm.expect(pm.environment.get(\"addLine1\")).to.eql(responseAddLine1);\r",
+									"   pm.expect(pm.environment.get(\"addLine2\")).to.eql(responseAddLine2);\r",
+									"   pm.expect(pm.environment.get(\"phNumber\")).to.eql(responsephNumber);\r",
+									"   pm.expect(pm.environment.get(\"comment\")).to.eql(responsecomment);\r",
+									"   pm.expect(pm.environment.get(\"zipCode\")).to.eql(responsezipCode);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Delete test case validation function\r",
+									"pm.test(\"Validating if order is deleted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData.message);\r",
+									"    pm.expect(jsonData.message).to.eql(\"Billing Order deleted successfully\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Read Order Test Case",
+			"item": [
+				{
+					"name": "Read all Billing Orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update Order Test Case",
+			"item": [
+				{
+					"name": "Create Billing Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"//setting environment variables\r",
+									"pm.environment.set(\"id\",jsonData.data.id);\r",
+									"pm.environment.set(\"fName\",jsonData.data.FirstName);\r",
+									"pm.environment.set(\"lName\",jsonData.data.LastName);\r",
+									"pm.environment.set(\"email\",jsonData.data.Email);\r",
+									"pm.environment.set(\"addLine1\",jsonData.data.AddressLine1);\r",
+									"pm.environment.set(\"addLine2\", jsonData.data.AddressLine2);\r",
+									"pm.environment.set(\"phNumber\",jsonData.data.PhoneNumber);\r",
+									"pm.environment.set(\"comment\",jsonData.data.Comment);\r",
+									"pm.environment.set(\"zipCode\",jsonData.data.ZipCode);\r",
+									"console.log(jsonData.data.id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"FirstName\": \"Arya\",\r\n  \"LastName\": \"Stark\",\r\n  \"Email\": \"as@gmail.com\",\r\n  \"AddressLine1\": \"North\",\r\n  \"AddressLine2\": \"Europe\",\r\n  \"PhoneNumber\": \"99559955\",\r\n  \"Comment\": \"testing\",\r\n  \"ZipCode\": \"5400\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Billing Order by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"//setting environment variables\r",
+									"pm.environment.set(\"id\",jsonData.data.id);\r",
+									"pm.environment.set(\"fName\",jsonData.data.FirstName);\r",
+									"pm.environment.set(\"lName\",jsonData.data.LastName);\r",
+									"pm.environment.set(\"email\",jsonData.data.Email);\r",
+									"pm.environment.set(\"addLine1\",jsonData.data.AddressLine1);\r",
+									"pm.environment.set(\"addLine2\", jsonData.data.AddressLine2);\r",
+									"pm.environment.set(\"phNumber\",jsonData.data.PhoneNumber);\r",
+									"pm.environment.set(\"comment\",jsonData.data.Comment);\r",
+									"pm.environment.set(\"zipCode\",jsonData.data.ZipCode);\r",
+									"console.log(jsonData.data.id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 5,\r\n  \"FirstName\": \"Ned\",\r\n  \"LastName\": \"Stark\",\r\n  \"Email\": \"NS@email.com\",\r\n  \"AddressLine1\": \"North\",\r\n  \"AddressLine2\": \"Europe\",\r\n  \"PhoneNumber\": \"99112211\",\r\n  \"Comment\": \"testing\",\r\n  \"ZipCode\": \"79898\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Billing Order by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//setting local variables\r",
+									"var jsonData = pm.response.json();\r",
+									"var responseId = jsonData.data.id;\r",
+									"var responseFName = jsonData.data.FirstName;\r",
+									"var responseLName = jsonData.data.LastName;\r",
+									"var responseEmail = jsonData.data.Email;\r",
+									"var responseAddLine1 = jsonData.data.AddressLine1;\r",
+									"var responseAddLine2 = jsonData.data.AddressLine2;\r",
+									"var responsephNumber = jsonData.data.PhoneNumber;\r",
+									"var responsecomment = jsonData.data.Comment;\r",
+									"var responsezipCode = jsonData.data.ZipCode; \r",
+									"console.log(responseId);\r",
+									"//Function to validate the billing order added         \r",
+									"pm.test(\"Validate Post Billing Order\", function () {\r",
+									"   pm.expect(pm.environment.get(\"id\")).to.eql(responseId);\r",
+									"   pm.expect(pm.environment.get(\"fName\")).to.eql(responseFName);\r",
+									"   pm.expect(pm.environment.get(\"lName\")).to.eql(responseLName);\r",
+									"   pm.expect(pm.environment.get(\"email\")).to.eql(responseEmail);\r",
+									"   pm.expect(pm.environment.get(\"addLine1\")).to.eql(responseAddLine1);\r",
+									"   pm.expect(pm.environment.get(\"addLine2\")).to.eql(responseAddLine2);\r",
+									"   pm.expect(pm.environment.get(\"phNumber\")).to.eql(responsephNumber);\r",
+									"   pm.expect(pm.environment.get(\"comment\")).to.eql(responsecomment);\r",
+									"   pm.expect(pm.environment.get(\"zipCode\")).to.eql(responsezipCode);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Delete test case validation function\r",
+									"pm.test(\"Validating if order is deleted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData.message);\r",
+									"    pm.expect(jsonData.message).to.eql(\"Billing Order deleted successfully\");\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Order Test Case",
+			"item": [
+				{
+					"name": "Create Billing Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"//setting environment variables\r",
+									"pm.environment.set(\"id\",jsonData.data.id);\r",
+									"pm.environment.set(\"fName\",jsonData.data.FirstName);\r",
+									"pm.environment.set(\"lName\",jsonData.data.LastName);\r",
+									"pm.environment.set(\"email\",jsonData.data.Email);\r",
+									"pm.environment.set(\"addLine1\",jsonData.data.AddressLine1);\r",
+									"pm.environment.set(\"addLine2\", jsonData.data.AddressLine2);\r",
+									"pm.environment.set(\"phNumber\",jsonData.data.PhoneNumber);\r",
+									"pm.environment.set(\"comment\",jsonData.data.Comment);\r",
+									"pm.environment.set(\"zipCode\",jsonData.data.ZipCode);\r",
+									"console.log(jsonData.data.id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"FirstName\": \"Arya\",\r\n  \"LastName\": \"Stark\",\r\n  \"Email\": \"as@gmail.com\",\r\n  \"AddressLine1\": \"North\",\r\n  \"AddressLine2\": \"Europe\",\r\n  \"PhoneNumber\": \"99559955\",\r\n  \"Comment\": \"testing\",\r\n  \"ZipCode\": \"5400\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Delete test case validation function\r",
+									"pm.test(\"Validating if order is deleted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData.message);\r",
+									"    pm.expect(jsonData.message).to.eql(\"Billing Order deleted successfully\");\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data Validation Test Case",
+			"item": [
+				{
+					"name": "Invalid data validation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Invalid data validation\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"The given data was invalid\");\r",
+									"    console.log(\"Fields cannot be left empty\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"FirstName\": \"\",\r\n  \"LastName\": \"Stark\",\r\n  \"Email\": \"as@gmail.com\",\r\n  \"AddressLine1\": \"North\",\r\n  \"AddressLine2\": \"Europe\",\r\n  \"PhoneNumber\": \"99559955\",\r\n  \"Comment\": \"testing\",\r\n  \"ZipCode\": \"5400\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Order Test Case CSV",
+			"item": [
+				{
+					"name": "Create Billing Order CSV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"//setting environment variables\r",
+									"pm.environment.set(\"id\",jsonData.data.id);\r",
+									"pm.environment.set(\"fName\",jsonData.data.FirstName);\r",
+									"pm.environment.set(\"lName\",jsonData.data.LastName);\r",
+									"pm.environment.set(\"email\",jsonData.data.Email);\r",
+									"pm.environment.set(\"addLine1\",jsonData.data.AddressLine1);\r",
+									"pm.environment.set(\"addLine2\", jsonData.data.AddressLine2);\r",
+									"pm.environment.set(\"phNumber\",jsonData.data.PhoneNumber);\r",
+									"pm.environment.set(\"comment\",jsonData.data.Comment);\r",
+									"pm.environment.set(\"zipCode\",jsonData.data.ZipCode);\r",
+									"console.log(jsonData.data.id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{itemnumber}}\",\r\n  \"FirstName\": \"{{firstname}}\",\r\n  \"LastName\": \"{{lastname}}\",\r\n  \"Email\": \"{{email}}\",\r\n  \"AddressLine1\": \"{{addressLine1}}\",\r\n  \"AddressLine2\": \"{{addressLine2}}\",\r\n  \"PhoneNumber\": \"{{phone}}\",\r\n  \"Comment\": \"{{comment}}\",\r\n  \"ZipCode\": \"{{zipcode}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Billing Order by Id CSV",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//setting local variables\r",
+									"var jsonData = pm.response.json();\r",
+									"var responseId = jsonData.data.id;\r",
+									"var responseFName = jsonData.data.FirstName;\r",
+									"var responseLName = jsonData.data.LastName;\r",
+									"var responseEmail = jsonData.data.Email;\r",
+									"var responseAddLine1 = jsonData.data.AddressLine1;\r",
+									"var responseAddLine2 = jsonData.data.AddressLine2;\r",
+									"var responsephNumber = jsonData.data.PhoneNumber;\r",
+									"var responsecomment = jsonData.data.Comment;\r",
+									"var responsezipCode = jsonData.data.ZipCode; \r",
+									"console.log(responseId);\r",
+									"//Function to validate the billing order added         \r",
+									"pm.test(\"Validate Post Billing Order\", function () {\r",
+									"   pm.expect(pm.environment.get(\"id\")).to.eql(responseId);\r",
+									"   pm.expect(pm.environment.get(\"fName\")).to.eql(responseFName);\r",
+									"   pm.expect(pm.environment.get(\"lName\")).to.eql(responseLName);\r",
+									"   pm.expect(pm.environment.get(\"email\")).to.eql(responseEmail);\r",
+									"   pm.expect(pm.environment.get(\"addLine1\")).to.eql(responseAddLine1);\r",
+									"   pm.expect(pm.environment.get(\"addLine2\")).to.eql(responseAddLine2);\r",
+									"   pm.expect(pm.environment.get(\"phNumber\")).to.eql(responsephNumber);\r",
+									"   pm.expect(pm.environment.get(\"comment\")).to.eql(responsecomment);\r",
+									"   pm.expect(pm.environment.get(\"zipCode\")).to.eql(responsezipCode);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete CSV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//Delete test case validation function\r",
+									"pm.test(\"Validating if order is deleted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(jsonData.message);\r",
+									"    pm.expect(jsonData.message).to.eql(\"Billing Order deleted successfully\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "responseId",
+			"value": ""
+		}
+	]
+}
